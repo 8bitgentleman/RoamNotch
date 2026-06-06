@@ -75,7 +75,7 @@ struct NotchView: View {
                             topLeadingRadius: 0, bottomLeadingRadius: 32,
                             bottomTrailingRadius: 32, topTrailingRadius: 0
                         )
-                        .fill(Color(white: 0.06))
+                        .fill(.black)
                     }
                     .zIndex(1)
                 }
