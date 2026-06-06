@@ -71,19 +71,11 @@ struct NotchView: View {
                     .padding([.horizontal, .bottom], vm.spacing)
                     .frame(maxWidth: vm.notchOpenedSize.width, maxHeight: vm.notchOpenedSize.height)
                     .background {
-                        ZStack {
-                            // Flat top, rounded bottom — matches the notch shape
-                            UnevenRoundedRectangle(
-                                topLeadingRadius: 0, bottomLeadingRadius: 32,
-                                bottomTrailingRadius: 32, topTrailingRadius: 0
-                            )
-                            .fill(.ultraThinMaterial)
-                            UnevenRoundedRectangle(
-                                topLeadingRadius: 0, bottomLeadingRadius: 32,
-                                bottomTrailingRadius: 32, topTrailingRadius: 0
-                            )
-                            .fill(Color(white: 0.059, opacity: 0.92))
-                        }
+                        UnevenRoundedRectangle(
+                            topLeadingRadius: 0, bottomLeadingRadius: 32,
+                            bottomTrailingRadius: 32, topTrailingRadius: 0
+                        )
+                        .fill(Color(white: 0.06))
                     }
                     .zIndex(1)
                 }
