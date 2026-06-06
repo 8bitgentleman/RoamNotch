@@ -46,6 +46,8 @@
 		50E26E292C3AF67B007CF247 /* TrayDrop+DropItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E26E282C3AF67B007CF247 /* TrayDrop+DropItem.swift */; };
 		50EFDB522C3BF7B4002D3E0F /* Ext+NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EFDB512C3BF7B4002D3E0F /* Ext+NSImage.swift */; };
 		5F4FE2BBD458498A97A8051A /* RoamCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDD57D5C1F9445695C6B29B /* RoamCaptureView.swift */; };
+		AA000001AA000001AA000001 /* FocusTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000002AA000002AA000002 /* FocusTimer.swift */; };
+		AA000003AA000003AA000003 /* FocusTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000004AA000004AA000004 /* FocusTimerView.swift */; };
 		60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD62862C579F4400299297 /* NotchSettingsView.swift */; };
 		9B6D4B455CFE454A977DBCFF /* RoamAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE2B8C67EFB4F82B04A555A /* RoamAPI.swift */; };
 		A7411FB33A364C2E9614BADD /* RoamConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CA8528223E4BFEAAE1E08F /* RoamConfig.swift */; };
@@ -57,6 +59,8 @@
 		148901522DC9149900F2E06C /* Share+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Share+View.swift"; sourceTree = "<group>"; };
 		2700D8ED2C3CFD37005ACDDF /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4DDD57D5C1F9445695C6B29B /* RoamCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamCaptureView.swift; sourceTree = "<group>"; };
+		AA000002AA000002AA000002 /* FocusTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimer.swift; sourceTree = "<group>"; };
+		AA000004AA000004AA000004 /* FocusTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerView.swift; sourceTree = "<group>"; };
 		501F0E8B2C59E6BD00F0113C /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		502E41D52C3CEC990060660E /* Ext+NSAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+NSAlert.swift"; sourceTree = "<group>"; };
 		503D8EB92C3F838200E173FF /* NotchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchMenuView.swift; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 				DCE2B8C67EFB4F82B04A555A /* RoamAPI.swift */,
 				04CA8528223E4BFEAAE1E08F /* RoamConfig.swift */,
 				4DDD57D5C1F9445695C6B29B /* RoamCaptureView.swift */,
+				AA000002AA000002AA000002 /* FocusTimer.swift */,
+				AA000004AA000004AA000004 /* FocusTimerView.swift */,
 			);
 			path = NotchDrop;
 			sourceTree = "<group>";
@@ -295,6 +301,8 @@
 				9B6D4B455CFE454A977DBCFF /* RoamAPI.swift in Sources */,
 				A7411FB33A364C2E9614BADD /* RoamConfig.swift in Sources */,
 				5F4FE2BBD458498A97A8051A /* RoamCaptureView.swift in Sources */,
+				AA000001AA000001AA000001 /* FocusTimer.swift in Sources */,
+				AA000003AA000003AA000003 /* FocusTimerView.swift in Sources */,
 				504381932C3A8755000ED325 /* main.swift in Sources */,
 				60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */,
 				504381A82C3A926E000ED325 /* NotchViewModel.swift in Sources */,

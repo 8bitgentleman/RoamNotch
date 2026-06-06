@@ -9,34 +9,36 @@ import SwiftUI
 
 struct NotchView: View {
     @StateObject var vm: NotchViewModel
+    @StateObject private var focusTimer = FocusTimer.shared
 
     @State var dropTargeting: Bool = false
+
+    // Width for the compact timer HUD — wide enough to show icon, bar, and time
+    private let compactTimerWidth: CGFloat = 280
 
     var notchSize: CGSize {
         switch vm.status {
         case .closed:
-            var ans = CGSize(
-                width: vm.deviceNotchRect.width - 4,
-                height: vm.deviceNotchRect.height - 4
-            )
-            if ans.width < 0 { ans.width = 0 }
-            if ans.height < 0 { ans.height = 0 }
-            return ans
+            let width = focusTimer.isActive
+                ? compactTimerWidth
+                : max(0, vm.deviceNotchRect.width - 4)
+            let height = max(0, vm.deviceNotchRect.height - 4)
+            return CGSize(width: width, height: height)
         case .opened:
             return vm.notchOpenedSize
         case .popping:
-            return .init(
-                width: vm.deviceNotchRect.width,
-                height: vm.deviceNotchRect.height + 4
-            )
+            let width = focusTimer.isActive
+                ? compactTimerWidth
+                : vm.deviceNotchRect.width
+            return .init(width: width, height: vm.deviceNotchRect.height + 4)
         }
     }
 
     var notchCornerRadius: CGFloat {
         switch vm.status {
-        case .closed: 8
+        case .closed: 14
         case .opened: 32
-        case .popping: 10
+        case .popping: 14
         }
     }
 
@@ -46,6 +48,12 @@ struct NotchView: View {
                 .zIndex(0)
                 .disabled(true)
                 .opacity(vm.notchVisible ? 1 : 0.3)
+            if vm.status != .opened, focusTimer.isActive {
+                FocusTimerCompact()
+                    .frame(width: compactTimerWidth, height: notchSize.height)
+                    .zIndex(1)
+                    .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
+            }
             Group {
                 if vm.status == .opened {
                     VStack(spacing: vm.spacing) {
@@ -55,6 +63,14 @@ struct NotchView: View {
                     }
                     .padding(vm.spacing)
                     .frame(maxWidth: vm.notchOpenedSize.width, maxHeight: vm.notchOpenedSize.height)
+                    .background {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 32)
+                                .fill(.ultraThinMaterial)
+                            RoundedRectangle(cornerRadius: 32)
+                                .fill(Color(white: 0.059, opacity: 0.92))
+                        }
+                    }
                     .zIndex(1)
                 }
             }

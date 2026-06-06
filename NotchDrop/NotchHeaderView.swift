@@ -1,41 +1,74 @@
-//
-//  NotchHeaderView.swift
-//  NotchDrop
-//
-//  Created by 秋星桥 on 2024/7/7.
-//
-
-import ColorfulX
 import SwiftUI
 
 struct NotchHeaderView: View {
     @StateObject var vm: NotchViewModel
-
-    private var headerTitle: String {
-        switch vm.contentType {
-        case .settings:
-            let ver = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
-            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
-            return "Version: \(ver) (Build: \(build))"
-        case .roamCapture:
-            return "Capture to Roam"
-        default:
-            return "Notch Drop"
-        }
-    }
+    @StateObject private var focusTimer = FocusTimer.shared
 
     var body: some View {
-        HStack {
-            Text(headerTitle)
-            .contentTransition(.numericText())
+        HStack(spacing: 6) {
+            TabPill(label: "Capture", icon: "square.and.pencil", active: vm.contentType == .roamCapture) {
+                vm.contentType = .roamCapture
+            }
+            TabPill(label: "Files", icon: "tray", active: vm.contentType == .normal) {
+                vm.contentType = .normal
+            }
+            if focusTimer.isActive {
+                TabPill(label: "Focus", icon: "timer", active: vm.contentType == .focusTimer) {
+                    vm.contentType = .focusTimer
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.85)))
+            }
+
             Spacer()
-            Image(systemName: "ellipsis")
+
+            Button { vm.showSettings() } label: {
+                Image(systemName: "gearshape")
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(Color(white: 0.55))
+                    .frame(width: 28, height: 28)
+            }
+            .buttonStyle(.plain)
+
+            Button { vm.contentType = .menu } label: {
+                Image(systemName: "ellipsis")
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(Color(white: 0.55))
+                    .frame(width: 28, height: 28)
+            }
+            .buttonStyle(.plain)
         }
+        .animation(vm.animation, value: focusTimer.isActive)
         .animation(vm.animation, value: vm.contentType)
-        .font(.system(.headline, design: .rounded))
+    }
+}
+
+private struct TabPill: View {
+    let label: String
+    let icon: String
+    let active: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 5) {
+                Image(systemName: icon)
+                    .font(.system(size: 12, weight: .semibold))
+                Text(label)
+                    .font(.system(size: 13, design: .rounded, weight: .semibold))
+            }
+            .foregroundStyle(active ? .white : Color(white: 0.55))
+            .padding(.horizontal, 12)
+            .padding(.vertical, 5)
+            .background(active ? Color(white: 0.22) : .clear, in: RoundedRectangle(cornerRadius: 10))
+        }
+        .buttonStyle(.plain)
     }
 }
 
 #Preview {
     NotchHeaderView(vm: .init())
+        .padding()
+        .frame(width: 600)
+        .background(.black)
+        .preferredColorScheme(.dark)
 }

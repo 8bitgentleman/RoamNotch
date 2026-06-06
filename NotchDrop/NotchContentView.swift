@@ -36,6 +36,10 @@ struct NotchContentView: View {
                 RoamCaptureView(vm: vm)
                     .transition(contentTransition)
             }
+            if vm.contentType == .focusTimer {
+                FocusTimerView(vm: vm)
+                    .transition(contentTransition)
+            }
         }
         .animation(vm.animation, value: vm.contentType)
     }

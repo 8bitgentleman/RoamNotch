@@ -23,19 +23,11 @@ extension NotchViewModel {
                     // touch outside, close
                     if !notchOpenedRect.contains(mouseLocation) {
                         notchClose()
-                        // click where user open the panel
+                        // click on the physical notch area while open, close
                     } else if deviceNotchRect.insetBy(dx: inset, dy: inset).contains(mouseLocation) {
                         notchClose()
-                        // for the same height as device notch, open the url of project
-                    } else if headlineOpenedRect.contains(mouseLocation) {
-                        // for clicking headline which mouse event may handled by another app
-                        // open the menu
-                        if let nextValue = ContentType(rawValue: contentType.rawValue + 1) {
-                            contentType = nextValue
-                        } else {
-                            contentType = ContentType(rawValue: 0)!
-                        }
                     }
+                    // header tab clicks are handled by SwiftUI buttons in NotchHeaderView
                 case .closed, .popping:
                     // touch inside, open
                     if deviceNotchRect.insetBy(dx: inset, dy: inset).contains(mouseLocation) {

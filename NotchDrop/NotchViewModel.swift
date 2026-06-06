@@ -18,11 +18,8 @@ class NotchViewModel: NSObject, ObservableObject {
         destroy()
     }
 
-    let animation: Animation = .interactiveSpring(
-        duration: 0.5,
-        extraBounce: 0.25,
-        blendDuration: 0.125
-    )
+    // stiffness=350, damping=28, mass=0.8 → response≈0.3, dampingFraction≈0.836
+    let animation: Animation = .spring(response: 0.3, dampingFraction: 0.836)
     let notchOpenedSize: CGSize = .init(width: 600, height: 160)
     let dropDetectorRange: CGFloat = 32
 
@@ -44,6 +41,7 @@ class NotchViewModel: NSObject, ObservableObject {
         case menu
         case settings
         case roamCapture
+        case focusTimer
     }
 
     var notchOpenedRect: CGRect {
@@ -103,6 +101,10 @@ class NotchViewModel: NSObject, ObservableObject {
 
     func showRoamCapture() {
         contentType = .roamCapture
+    }
+
+    func showFocusTimer() {
+        contentType = .focusTimer
     }
 
     func notchPop() {

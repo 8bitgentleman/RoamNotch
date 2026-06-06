@@ -17,6 +17,7 @@ struct NotchMenuView: View {
             close
             settings
             roam
+            focus
             clear
         }
     }
@@ -57,6 +58,18 @@ struct NotchMenuView: View {
         )
         .onTapGesture {
             vm.showRoamCapture()
+        }
+        .clipShape(RoundedRectangle(cornerRadius: vm.cornerRadius))
+    }
+
+    var focus: some View {
+        ColorButton(
+            color: [.orange],
+            image: Image(systemName: "timer"),
+            title: "Focus"
+        )
+        .onTapGesture {
+            vm.showFocusTimer()
         }
         .clipShape(RoundedRectangle(cornerRadius: vm.cornerRadius))
     }
