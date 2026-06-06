@@ -4,13 +4,8 @@
 <dict>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>com.apple.security.hardened-process</key>
-	<true/>
-	<key>com.apple.security.hardened-process.dyld-ro</key>
-	<true/>
-	<key>com.apple.security.hardened-process.enhanced-security-version</key>
-	<integer>1</integer>
-	<key>com.apple.security.hardened-process.platform-restrictions</key>
-	<integer>2</integer>
+	<!-- App Sandbox (ENABLE_APP_SANDBOX=NO) and the strict hardened-process model were
+	     removed so the app can spawn /usr/bin/perl for the MediaRemote Now Playing adapter.
+	     See CLAUDE.md "Media Player HUD" for the tradeoff. -->
 </dict>
 </plist>

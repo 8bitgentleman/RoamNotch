@@ -11,23 +11,32 @@ struct NotchView: View {
     @StateObject var vm: NotchViewModel
     @StateObject private var focusTimer = FocusTimer.shared
     @StateObject private var sysMonitor = SystemMonitor.shared
+    @StateObject private var nowPlaying = NowPlayingMonitor.shared
 
     @State var dropTargeting: Bool = false
 
     private let compactTimerWidth: CGFloat = 280
     private let compactSysmonWidth: CGFloat = 300
+    // Media flanks the camera: art left + indicator right (closed), + scrolling title (hover).
+    private var compactMediaWidth: CGFloat { vm.deviceNotchRect.width + 96 }
+    private var compactMediaPoppingWidth: CGFloat { vm.deviceNotchRect.width + 300 }
 
     var notchSize: CGSize {
         switch vm.status {
         case .closed:
-            // Timer always shows its compact HUD; sysmon only peeks on hover
-            let width = focusTimer.isActive ? compactTimerWidth : max(0, vm.deviceNotchRect.width - 4)
+            // Timer always shows its compact HUD; media auto-shows while playing; sysmon
+            // only peeks on hover. Priority: timer > media > sysmon.
+            let width: CGFloat = focusTimer.isActive ? compactTimerWidth
+                : nowPlaying.isActive ? compactMediaWidth
+                : max(0, vm.deviceNotchRect.width - 4)
             return CGSize(width: width, height: max(0, vm.deviceNotchRect.height - 4))
         case .opened:
             return vm.notchOpenedSize
         case .popping:
-            // On hover: timer keeps its width, sysmon slides out to reveal stats
-            let width = focusTimer.isActive ? compactTimerWidth : compactSysmonWidth
+            // On hover: timer keeps its width, media widens to scroll the title, else sysmon.
+            let width: CGFloat = focusTimer.isActive ? compactTimerWidth
+                : nowPlaying.isActive ? compactMediaPoppingWidth
+                : compactSysmonWidth
             return CGSize(width: width, height: vm.deviceNotchRect.height + 4)
         }
     }
@@ -50,6 +59,12 @@ struct NotchView: View {
                 if focusTimer.isActive {
                     FocusTimerCompact()
                         .frame(width: compactTimerWidth, height: notchSize.height)
+                        .zIndex(1)
+                        .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
+                } else if nowPlaying.isActive {
+                    // Album art left of the camera, playback indicator right; title scrolls on hover.
+                    MediaPlayerCompact(notchWidth: vm.deviceNotchRect.width, expanded: vm.status == .popping)
+                        .frame(width: notchSize.width, height: notchSize.height)
                         .zIndex(1)
                         .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
                 } else if vm.status == .popping {
@@ -90,6 +105,7 @@ struct NotchView: View {
         }
         .background(dragDetector)
         .animation(vm.animation, value: vm.status)
+        .animation(vm.animation, value: nowPlaying.isActive)
         .preferredColorScheme(.dark)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }

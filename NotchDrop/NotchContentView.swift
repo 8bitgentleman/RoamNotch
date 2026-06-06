@@ -44,6 +44,10 @@ struct NotchContentView: View {
                 SystemMonitorView(vm: vm)
                     .transition(contentTransition)
             }
+            if vm.contentType == .mediaPlayer {
+                MediaPlayerView(vm: vm)
+                    .transition(contentTransition)
+            }
         }
         .animation(vm.animation, value: vm.contentType)
     }

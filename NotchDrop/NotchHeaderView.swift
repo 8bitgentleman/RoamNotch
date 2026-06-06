@@ -3,6 +3,7 @@ import SwiftUI
 struct NotchHeaderView: View {
     @StateObject var vm: NotchViewModel
     @StateObject private var focusTimer = FocusTimer.shared
+    @StateObject private var nowPlaying = NowPlayingMonitor.shared
 
     var body: some View {
         HStack(spacing: 6) {
@@ -18,6 +19,12 @@ struct NotchHeaderView: View {
             if focusTimer.isActive {
                 TabPill(label: "Focus", icon: "timer", active: vm.contentType == .focusTimer) {
                     vm.contentType = .focusTimer
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.85)))
+            }
+            if nowPlaying.hasTrack {
+                TabPill(label: "Media", icon: "music.note", active: vm.contentType == .mediaPlayer) {
+                    vm.contentType = .mediaPlayer
                 }
                 .transition(.opacity.combined(with: .scale(scale: 0.85)))
             }
@@ -41,6 +48,7 @@ struct NotchHeaderView: View {
             .buttonStyle(.plain)
         }
         .animation(vm.animation, value: focusTimer.isActive)
+        .animation(vm.animation, value: nowPlaying.hasTrack)
         .animation(vm.animation, value: vm.contentType)
     }
 }

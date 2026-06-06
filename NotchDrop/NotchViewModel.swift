@@ -13,6 +13,7 @@ class NotchViewModel: NSObject, ObservableObject {
         super.init()
         setupCancellables()
         SystemMonitor.shared.start()
+        NowPlayingMonitor.shared.start()
     }
 
     deinit {
@@ -44,6 +45,7 @@ class NotchViewModel: NSObject, ObservableObject {
         case roamCapture
         case focusTimer
         case systemMonitor
+        case mediaPlayer
     }
 
     var notchOpenedRect: CGRect {
@@ -97,7 +99,15 @@ class NotchViewModel: NSObject, ObservableObject {
     func notchOpen(_ reason: OpenReason) {
         openReason = reason
         status = .opened
-        contentType = reason == .drag ? .normal : lastTabContent
+        // Drag always opens the file tray. A click while music is playing jumps straight to
+        // the media panel (the compact HUD you clicked); otherwise restore the last tab.
+        if reason == .drag {
+            contentType = .normal
+        } else if reason == .click, NowPlayingMonitor.shared.isActive {
+            contentType = .mediaPlayer
+        } else {
+            contentType = lastTabContent
+        }
         NSApp.activate(ignoringOtherApps: true)
     }
 
@@ -122,6 +132,10 @@ class NotchViewModel: NSObject, ObservableObject {
 
     func showSystemMonitor() {
         contentType = .systemMonitor
+    }
+
+    func showMediaPlayer() {
+        contentType = .mediaPlayer
     }
 
     func notchPop() {

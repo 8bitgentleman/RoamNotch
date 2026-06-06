@@ -50,6 +50,10 @@
 		AA000003AA000003AA000003 /* FocusTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000004AA000004AA000004 /* FocusTimerView.swift */; };
 		AA000005AA000005AA000005 /* SystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000006AA000006AA000006 /* SystemMonitor.swift */; };
 		AA000007AA000007AA000007 /* SystemMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000008AA000008AA000008 /* SystemMonitorView.swift */; };
+		AA000009AA000009AA000009 /* NowPlayingMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000AAA00000AAA00000A /* NowPlayingMonitor.swift */; };
+		AA00000BAA00000BAA00000B /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000CAA00000CAA00000C /* MediaPlayerView.swift */; };
+		AB000003AB000003AB000003 /* MediaRemoteAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = AB000002AB000002AB000002 /* MediaRemoteAdapter */; };
+		AB000004AB000004AB000004 /* MediaRemoteAdapter in Embed Frameworks */ = {isa = PBXBuildFile; productRef = AB000002AB000002AB000002 /* MediaRemoteAdapter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD62862C579F4400299297 /* NotchSettingsView.swift */; };
 		9B6D4B455CFE454A977DBCFF /* RoamAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE2B8C67EFB4F82B04A555A /* RoamAPI.swift */; };
 		A7411FB33A364C2E9614BADD /* RoamConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CA8528223E4BFEAAE1E08F /* RoamConfig.swift */; };
@@ -65,6 +69,8 @@
 		AA000004AA000004AA000004 /* FocusTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerView.swift; sourceTree = "<group>"; };
 		AA000006AA000006AA000006 /* SystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitor.swift; sourceTree = "<group>"; };
 		AA000008AA000008AA000008 /* SystemMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitorView.swift; sourceTree = "<group>"; };
+		AA00000AAA00000AAA00000A /* NowPlayingMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMonitor.swift; sourceTree = "<group>"; };
+		AA00000CAA00000CAA00000C /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		501F0E8B2C59E6BD00F0113C /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		502E41D52C3CEC990060660E /* Ext+NSAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+NSAlert.swift"; sourceTree = "<group>"; };
 		503D8EB92C3F838200E173FF /* NotchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchMenuView.swift; sourceTree = "<group>"; };
@@ -112,10 +118,25 @@
 				504A5D802C59EC2D004E8297 /* LaunchAtLogin in Frameworks */,
 				5044EEA72C3B174100071C5C /* BitCollections in Frameworks */,
 				47D3508A19FEBF9C05FB4210 /* LookInsideServer in Frameworks */,
+				AB000003AB000003AB000003 /* MediaRemoteAdapter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AB000005AB000005AB000005 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AB000004AB000004AB000004 /* MediaRemoteAdapter in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXGroup section */
 		504381772C3A86EA000ED325 = {
@@ -177,6 +198,8 @@
 				AA000004AA000004AA000004 /* FocusTimerView.swift */,
 				AA000006AA000006AA000006 /* SystemMonitor.swift */,
 				AA000008AA000008AA000008 /* SystemMonitorView.swift */,
+				AA00000AAA00000AAA00000A /* NowPlayingMonitor.swift */,
+				AA00000CAA00000CAA00000C /* MediaPlayerView.swift */,
 			);
 			path = NotchDrop;
 			sourceTree = "<group>";
@@ -198,6 +221,7 @@
 				5043817C2C3A86EA000ED325 /* Sources */,
 				5043817D2C3A86EA000ED325 /* Frameworks */,
 				5043817E2C3A86EA000ED325 /* Resources */,
+				AB000005AB000005AB000005 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -214,6 +238,7 @@
 				5044EEAE2C3B174100071C5C /* HeapModule */,
 				504A5D7F2C59EC2D004E8297 /* LaunchAtLogin */,
 				FCA8014702703782FB473265 /* LookInsideServer */,
+				AB000002AB000002AB000002 /* MediaRemoteAdapter */,
 			);
 			productName = NotchDrop;
 			productReference = 504381802C3A86EA000ED325 /* NotchDrop.app */;
@@ -253,6 +278,7 @@
 				5044EEA52C3B174100071C5C /* XCRemoteSwiftPackageReference "swift-collections" */,
 				504A5D7E2C59EC2D004E8297 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 				0D0639E6F8CE7937970B1241 /* XCRemoteSwiftPackageReference "LookInside-Release" */,
+				AB000001AB000001AB000001 /* XCRemoteSwiftPackageReference "mediaremote-adapter" */,
 			);
 			productRefGroup = 504381812C3A86EA000ED325 /* Products */;
 			projectDirPath = "";
@@ -311,6 +337,8 @@
 				AA000003AA000003AA000003 /* FocusTimerView.swift in Sources */,
 				AA000005AA000005AA000005 /* SystemMonitor.swift in Sources */,
 				AA000007AA000007AA000007 /* SystemMonitorView.swift in Sources */,
+				AA000009AA000009AA000009 /* NowPlayingMonitor.swift in Sources */,
+				AA00000BAA00000BAA00000B /* MediaPlayerView.swift in Sources */,
 				504381932C3A8755000ED325 /* main.swift in Sources */,
 				60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */,
 				504381A82C3A926E000ED325 /* NotchViewModel.swift in Sources */,
@@ -461,7 +489,7 @@
 				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = U93HF9A978;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_POINTER_AUTHENTICATION = NO;
@@ -497,7 +525,7 @@
 				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = U93HF9A978;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_POINTER_AUTHENTICATION = NO;
@@ -589,6 +617,14 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		AB000001AB000001AB000001 /* XCRemoteSwiftPackageReference "mediaremote-adapter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ejbills/mediaremote-adapter.git";
+			requirement = {
+				kind = revision;
+				revision = cf30c4f1af29b5829d859f088f8dbdf12611a046;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -636,6 +672,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0D0639E6F8CE7937970B1241 /* XCRemoteSwiftPackageReference "LookInside-Release" */;
 			productName = LookInsideServer;
+		};
+		AB000002AB000002AB000002 /* MediaRemoteAdapter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB000001AB000001AB000001 /* XCRemoteSwiftPackageReference "mediaremote-adapter" */;
+			productName = MediaRemoteAdapter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
