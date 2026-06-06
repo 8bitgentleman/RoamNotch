@@ -67,7 +67,8 @@ struct NotchView: View {
                         NotchContentView(vm: vm)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .padding(vm.spacing)
+                    .padding(.top, vm.deviceNotchRect.height + vm.spacing)
+                    .padding([.horizontal, .bottom], vm.spacing)
                     .frame(maxWidth: vm.notchOpenedSize.width, maxHeight: vm.notchOpenedSize.height)
                     .background {
                         ZStack {
