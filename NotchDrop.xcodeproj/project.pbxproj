@@ -52,6 +52,7 @@
 		AA000007AA000007AA000007 /* SystemMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000008AA000008AA000008 /* SystemMonitorView.swift */; };
 		AA000009AA000009AA000009 /* NowPlayingMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000AAA00000AAA00000A /* NowPlayingMonitor.swift */; };
 		AA00000BAA00000BAA00000B /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000CAA00000CAA00000C /* MediaPlayerView.swift */; };
+		BB000002BB000002BB000002 /* NotchShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001BB000001BB000001 /* NotchShape.swift */; };
 		AB000003AB000003AB000003 /* MediaRemoteAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = AB000002AB000002AB000002 /* MediaRemoteAdapter */; };
 		AB000004AB000004AB000004 /* MediaRemoteAdapter in Embed Frameworks */ = {isa = PBXBuildFile; productRef = AB000002AB000002AB000002 /* MediaRemoteAdapter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD62862C579F4400299297 /* NotchSettingsView.swift */; };
@@ -71,6 +72,7 @@
 		AA000008AA000008AA000008 /* SystemMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitorView.swift; sourceTree = "<group>"; };
 		AA00000AAA00000AAA00000A /* NowPlayingMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMonitor.swift; sourceTree = "<group>"; };
 		AA00000CAA00000CAA00000C /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
+		BB000001BB000001BB000001 /* NotchShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchShape.swift; sourceTree = "<group>"; };
 		501F0E8B2C59E6BD00F0113C /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		502E41D52C3CEC990060660E /* Ext+NSAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+NSAlert.swift"; sourceTree = "<group>"; };
 		503D8EB92C3F838200E173FF /* NotchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchMenuView.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				AA000008AA000008AA000008 /* SystemMonitorView.swift */,
 				AA00000AAA00000AAA00000A /* NowPlayingMonitor.swift */,
 				AA00000CAA00000CAA00000C /* MediaPlayerView.swift */,
+				BB000001BB000001BB000001 /* NotchShape.swift */,
 			);
 			path = NotchDrop;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				AA000007AA000007AA000007 /* SystemMonitorView.swift in Sources */,
 				AA000009AA000009AA000009 /* NowPlayingMonitor.swift in Sources */,
 				AA00000BAA00000BAA00000B /* MediaPlayerView.swift in Sources */,
+				BB000002BB000002BB000002 /* NotchShape.swift in Sources */,
 				504381932C3A8755000ED325 /* main.swift in Sources */,
 				60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */,
 				504381A82C3A926E000ED325 /* NotchViewModel.swift in Sources */,

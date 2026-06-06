@@ -17,6 +17,12 @@ struct NotchView: View {
 
     private let compactTimerWidth: CGFloat = 280
     private let compactSysmonWidth: CGFloat = 300
+
+    /// A compact HUD (timer or media) extends the notch past the physical cutout onto the
+    /// desktop, so it must stay fully opaque — the idle-dim only applies to the bare notch
+    /// sitting invisibly inside the black cutout. Without this, a light-mode wallpaper shows
+    /// through the 0.3-opacity capsule as grey instead of jet black.
+    private var compactActive: Bool { focusTimer.isActive || nowPlaying.isActive }
     // Media flanks the camera: art left + indicator right (closed), + scrolling title (hover).
     private var compactMediaWidth: CGFloat { vm.deviceNotchRect.width + 96 }
     private var compactMediaPoppingWidth: CGFloat { vm.deviceNotchRect.width + 300 }
@@ -29,7 +35,9 @@ struct NotchView: View {
             let width: CGFloat = focusTimer.isActive ? compactTimerWidth
                 : nowPlaying.isActive ? compactMediaWidth
                 : max(0, vm.deviceNotchRect.width - 4)
-            return CGSize(width: width, height: max(0, vm.deviceNotchRect.height - 4))
+            // Match the physical notch height exactly so a compact capsule lines up flush with
+            // the cutout's bottom edge instead of stopping a few px short.
+            return CGSize(width: width, height: vm.deviceNotchRect.height)
         case .opened:
             return vm.notchOpenedSize
         case .popping:
@@ -41,11 +49,20 @@ struct NotchView: View {
         }
     }
 
-    var notchCornerRadius: CGFloat {
+    // Derived from the physical notch height so radii scale correctly on any Mac.
+    private var notchBaseRadius: CGFloat { vm.deviceNotchRect.height / 3 }
+
+    var notchTopRadius: CGFloat {
         switch vm.status {
-        case .closed: 14
-        case .opened: 32
-        case .popping: 14
+        case .closed, .popping: notchBaseRadius - 4
+        case .opened: 0
+        }
+    }
+
+    var notchBottomRadius: CGFloat {
+        switch vm.status {
+        case .closed, .popping: notchBaseRadius
+        case .opened: 44
         }
     }
 
@@ -54,7 +71,7 @@ struct NotchView: View {
             notch
                 .zIndex(0)
                 .disabled(true)
-                .opacity(vm.notchVisible ? 1 : 0.3)
+                .opacity((vm.notchVisible || compactActive) ? 1 : 0.3)
             if vm.status != .opened {
                 if focusTimer.isActive {
                     FocusTimerCompact()
@@ -87,8 +104,8 @@ struct NotchView: View {
                     .frame(maxWidth: vm.notchOpenedSize.width, maxHeight: vm.notchOpenedSize.height)
                     .background {
                         UnevenRoundedRectangle(
-                            topLeadingRadius: 0, bottomLeadingRadius: 32,
-                            bottomTrailingRadius: 32, topTrailingRadius: 0
+                            topLeadingRadius: 0, bottomLeadingRadius: notchBottomRadius,
+                            bottomTrailingRadius: notchBottomRadius, topTrailingRadius: 0
                         )
                         .fill(.black)
                     }
@@ -111,71 +128,18 @@ struct NotchView: View {
     }
 
     var notch: some View {
-        Rectangle()
-            .foregroundStyle(.black)
-            .mask(notchBackgroundMaskGroup)
-            .frame(
-                width: notchSize.width + notchCornerRadius * 2,
-                height: notchSize.height
-            )
+        NotchShape(topCornerRadius: notchTopRadius, bottomCornerRadius: notchBottomRadius)
+            .fill(.black)
+            .frame(width: notchSize.width, height: notchSize.height)
             .shadow(
                 color: .black.opacity(([.opened, .popping].contains(vm.status)) ? 1 : 0),
                 radius: 16
             )
     }
 
-    var notchBackgroundMaskGroup: some View {
-        Rectangle()
-            .foregroundStyle(.black)
-            .frame(
-                width: notchSize.width,
-                height: notchSize.height
-            )
-            .clipShape(.rect(
-                bottomLeadingRadius: notchCornerRadius,
-                bottomTrailingRadius: notchCornerRadius
-            ))
-            .overlay {
-                ZStack(alignment: .topTrailing) {
-                    Rectangle()
-                        .frame(width: notchCornerRadius, height: notchCornerRadius)
-                        .foregroundStyle(.black)
-                    Rectangle()
-                        .clipShape(.rect(topTrailingRadius: notchCornerRadius))
-                        .foregroundStyle(.white)
-                        .frame(
-                            width: notchCornerRadius + vm.spacing,
-                            height: notchCornerRadius + vm.spacing
-                        )
-                        .blendMode(.destinationOut)
-                }
-                .compositingGroup()
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .offset(x: -notchCornerRadius - vm.spacing + 0.5, y: -0.5)
-            }
-            .overlay {
-                ZStack(alignment: .topLeading) {
-                    Rectangle()
-                        .frame(width: notchCornerRadius, height: notchCornerRadius)
-                        .foregroundStyle(.black)
-                    Rectangle()
-                        .clipShape(.rect(topLeadingRadius: notchCornerRadius))
-                        .foregroundStyle(.white)
-                        .frame(
-                            width: notchCornerRadius + vm.spacing,
-                            height: notchCornerRadius + vm.spacing
-                        )
-                        .blendMode(.destinationOut)
-                }
-                .compositingGroup()
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                .offset(x: notchCornerRadius + vm.spacing - 0.5, y: -0.5)
-            }
-    }
-
     @ViewBuilder
     var dragDetector: some View {
-        RoundedRectangle(cornerRadius: notchCornerRadius)
+        RoundedRectangle(cornerRadius: notchBottomRadius)
             .foregroundStyle(Color.black.opacity(0.001)) // fuck you apple and 0.001 is the smallest we can have
             .contentShape(Rectangle())
             .frame(width: notchSize.width + vm.dropDetectorRange, height: notchSize.height + vm.dropDetectorRange)
