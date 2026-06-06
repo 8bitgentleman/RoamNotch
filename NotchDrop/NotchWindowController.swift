@@ -39,6 +39,7 @@ class NotchWindowController: NSWindowController {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak vm] in
             vm?.screenRect = screen.frame
+            vm?.menuBarHeight = screen.frame.maxY - screen.visibleFrame.maxY
             if self.openAfterCreate { vm?.notchOpen(.boot) }
         }
     }

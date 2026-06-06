@@ -82,6 +82,7 @@ class NotchViewModel: NSObject, ObservableObject {
     @Published var cornerRadius: CGFloat = 16
     @Published var deviceNotchRect: CGRect = .zero
     @Published var screenRect: CGRect = .zero
+    @Published var menuBarHeight: CGFloat = 28
     @Published var optionKeyPressed: Bool = false
     @Published var notchVisible: Bool = true
 

@@ -67,7 +67,7 @@ struct NotchView: View {
                         NotchContentView(vm: vm)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .padding(.top, vm.deviceNotchRect.height + vm.spacing)
+                    .padding(.top, vm.menuBarHeight + vm.spacing)
                     .padding([.horizontal, .bottom], vm.spacing)
                     .frame(maxWidth: vm.notchOpenedSize.width, maxHeight: vm.notchOpenedSize.height)
                     .background {
