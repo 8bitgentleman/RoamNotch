@@ -21,7 +21,7 @@ class NotchViewModel: NSObject, ObservableObject {
 
     // stiffness=350, damping=28, mass=0.8 → response≈0.3, dampingFraction≈0.836
     let animation: Animation = .spring(response: 0.3, dampingFraction: 0.836)
-    let notchOpenedSize: CGSize = .init(width: 600, height: 160)
+    let notchOpenedSize: CGSize = .init(width: 600, height: 180)
     let dropDetectorRange: CGFloat = 32
 
     enum Status: String, Codable, Hashable, Equatable {

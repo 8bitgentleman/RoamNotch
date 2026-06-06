@@ -20,14 +20,10 @@ extension NotchViewModel {
                 let mouseLocation: NSPoint = NSEvent.mouseLocation
                 switch status {
                 case .opened:
-                    // touch outside, close
+                    // close when clicking outside the panel
                     if !notchOpenedRect.contains(mouseLocation) {
                         notchClose()
-                        // click on the physical notch area while open, close
-                    } else if deviceNotchRect.insetBy(dx: inset, dy: inset).contains(mouseLocation) {
-                        notchClose()
                     }
-                    // header tab clicks are handled by SwiftUI buttons in NotchHeaderView
                 case .closed, .popping:
                     // touch inside, open
                     if deviceNotchRect.insetBy(dx: inset, dy: inset).contains(mouseLocation) {
