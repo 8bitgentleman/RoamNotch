@@ -12,6 +12,7 @@ class NotchViewModel: NSObject, ObservableObject {
         self.inset = inset
         super.init()
         setupCancellables()
+        SystemMonitor.shared.start()
     }
 
     deinit {
@@ -42,6 +43,7 @@ class NotchViewModel: NSObject, ObservableObject {
         case settings
         case roamCapture
         case focusTimer
+        case systemMonitor
     }
 
     var notchOpenedRect: CGRect {
@@ -64,7 +66,17 @@ class NotchViewModel: NSObject, ObservableObject {
 
     @Published private(set) var status: Status = .closed
     @Published var openReason: OpenReason = .unknown
-    @Published var contentType: ContentType = .roamCapture
+    @Published var contentType: ContentType = .roamCapture {
+        didSet { if isTabContent(contentType) { lastTabContent = contentType } }
+    }
+
+    // Tabs that should be remembered across open/close
+    private func isTabContent(_ t: ContentType) -> Bool {
+        t == .roamCapture || t == .normal || t == .focusTimer || t == .systemMonitor
+    }
+
+    @PublishedPersist(key: "lastTabContent", defaultValue: .roamCapture)
+    var lastTabContent: ContentType
 
     @Published var spacing: CGFloat = 16
     @Published var cornerRadius: CGFloat = 16
@@ -84,7 +96,7 @@ class NotchViewModel: NSObject, ObservableObject {
     func notchOpen(_ reason: OpenReason) {
         openReason = reason
         status = .opened
-        contentType = reason == .drag ? .normal : .roamCapture
+        contentType = reason == .drag ? .normal : lastTabContent
         NSApp.activate(ignoringOtherApps: true)
     }
 
@@ -105,6 +117,10 @@ class NotchViewModel: NSObject, ObservableObject {
 
     func showFocusTimer() {
         contentType = .focusTimer
+    }
+
+    func showSystemMonitor() {
+        contentType = .systemMonitor
     }
 
     func notchPop() {

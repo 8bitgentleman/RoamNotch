@@ -40,6 +40,10 @@ struct NotchContentView: View {
                 FocusTimerView(vm: vm)
                     .transition(contentTransition)
             }
+            if vm.contentType == .systemMonitor {
+                SystemMonitorView(vm: vm)
+                    .transition(contentTransition)
+            }
         }
         .animation(vm.animation, value: vm.contentType)
     }

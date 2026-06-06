@@ -12,6 +12,9 @@ struct NotchHeaderView: View {
             TabPill(label: "Files", icon: "tray", active: vm.contentType == .normal) {
                 vm.contentType = .normal
             }
+            TabPill(label: "Stats", icon: "chart.bar.xaxis", active: vm.contentType == .systemMonitor) {
+                vm.contentType = .systemMonitor
+            }
             if focusTimer.isActive {
                 TabPill(label: "Focus", icon: "timer", active: vm.contentType == .focusTimer) {
                     vm.contentType = .focusTimer

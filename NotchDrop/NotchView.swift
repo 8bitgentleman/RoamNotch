@@ -10,26 +10,26 @@ import SwiftUI
 struct NotchView: View {
     @StateObject var vm: NotchViewModel
     @StateObject private var focusTimer = FocusTimer.shared
+    @StateObject private var sysMonitor = SystemMonitor.shared
 
     @State var dropTargeting: Bool = false
 
-    // Width for the compact timer HUD — wide enough to show icon, bar, and time
     private let compactTimerWidth: CGFloat = 280
+    private let compactSysmonWidth: CGFloat = 300
+
+    private var compactActive: Bool { focusTimer.isActive || true } // sysmon always shows
+    private var compactWidth: CGFloat { focusTimer.isActive ? compactTimerWidth : compactSysmonWidth }
 
     var notchSize: CGSize {
         switch vm.status {
         case .closed:
-            let width = focusTimer.isActive
-                ? compactTimerWidth
-                : max(0, vm.deviceNotchRect.width - 4)
+            let width = compactActive ? compactWidth : max(0, vm.deviceNotchRect.width - 4)
             let height = max(0, vm.deviceNotchRect.height - 4)
             return CGSize(width: width, height: height)
         case .opened:
             return vm.notchOpenedSize
         case .popping:
-            let width = focusTimer.isActive
-                ? compactTimerWidth
-                : vm.deviceNotchRect.width
+            let width = compactActive ? compactWidth : vm.deviceNotchRect.width
             return .init(width: width, height: vm.deviceNotchRect.height + 4)
         }
     }
@@ -48,11 +48,18 @@ struct NotchView: View {
                 .zIndex(0)
                 .disabled(true)
                 .opacity(vm.notchVisible ? 1 : 0.3)
-            if vm.status != .opened, focusTimer.isActive {
-                FocusTimerCompact()
-                    .frame(width: compactTimerWidth, height: notchSize.height)
-                    .zIndex(1)
-                    .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
+            if vm.status != .opened {
+                if focusTimer.isActive {
+                    FocusTimerCompact()
+                        .frame(width: compactTimerWidth, height: notchSize.height)
+                        .zIndex(1)
+                        .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
+                } else {
+                    SystemMonitorCompact()
+                        .frame(width: compactSysmonWidth, height: notchSize.height)
+                        .zIndex(1)
+                        .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
+                }
             }
             Group {
                 if vm.status == .opened {
