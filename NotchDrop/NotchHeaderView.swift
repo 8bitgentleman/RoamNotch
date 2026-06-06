@@ -11,13 +11,22 @@ import SwiftUI
 struct NotchHeaderView: View {
     @StateObject var vm: NotchViewModel
 
+    private var headerTitle: String {
+        switch vm.contentType {
+        case .settings:
+            let ver = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
+            return "Version: \(ver) (Build: \(build))"
+        case .roamCapture:
+            return "Capture to Roam"
+        default:
+            return "Notch Drop"
+        }
+    }
+
     var body: some View {
         HStack {
-            Text(
-                vm.contentType == .settings
-                    ? "Version: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown") (Build: \(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"))"
-                    : "Notch Drop"
-            )
+            Text(headerTitle)
             .contentTransition(.numericText())
             Spacer()
             Image(systemName: "ellipsis")

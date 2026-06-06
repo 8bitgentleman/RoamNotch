@@ -11,8 +11,10 @@ import SwiftUI
 struct NotchSettingsView: View {
     @StateObject var vm: NotchViewModel
     @StateObject var tvm: TrayDrop = .shared
+    @StateObject var roam = RoamConfig.shared
 
     var body: some View {
+        ScrollView(.vertical, showsIndicators: false) {
         VStack(spacing: vm.spacing) {
             HStack {
                 Picker("Language: ", selection: $vm.selectedLanguage) {
@@ -58,8 +60,28 @@ struct NotchSettingsView: View {
                 }
                 Spacer()
             }
+
+            Divider()
+
+            HStack(spacing: 8) {
+                Text("Roam Graph:")
+                    .frame(width: 88, alignment: .trailing)
+                TextField("my-graph", text: $roam.graphName)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 140)
+                Text("API Token:")
+                    .frame(width: 70, alignment: .trailing)
+                SecureField("roam-graph-token-…", text: $roam.apiToken)
+                    .textFieldStyle(.roundedBorder)
+                if roam.isConfigured {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                }
+                Spacer()
+            }
         }
         .padding()
+        } // ScrollView
         .transition(.scale(scale: 0.8).combined(with: .opacity))
     }
 }

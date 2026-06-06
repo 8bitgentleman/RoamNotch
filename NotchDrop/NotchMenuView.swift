@@ -16,6 +16,7 @@ struct NotchMenuView: View {
         HStack(spacing: vm.spacing) {
             close
             settings
+            roam
             clear
         }
     }
@@ -44,6 +45,18 @@ struct NotchMenuView: View {
         .onTapGesture {
             tvm.removeAll()
             vm.notchClose()
+        }
+        .clipShape(RoundedRectangle(cornerRadius: vm.cornerRadius))
+    }
+
+    var roam: some View {
+        ColorButton(
+            color: [Color(red: 0.35, green: 0.8, blue: 0.35)],
+            image: Image(systemName: "square.and.pencil"),
+            title: "Roam"
+        )
+        .onTapGesture {
+            vm.showRoamCapture()
         }
         .clipShape(RoundedRectangle(cornerRadius: vm.cornerRadius))
     }

@@ -43,6 +43,7 @@ class NotchViewModel: NSObject, ObservableObject {
         case normal
         case menu
         case settings
+        case roamCapture
     }
 
     var notchOpenedRect: CGRect {
@@ -85,18 +86,22 @@ class NotchViewModel: NSObject, ObservableObject {
     func notchOpen(_ reason: OpenReason) {
         openReason = reason
         status = .opened
-        contentType = .normal
+        contentType = reason == .drag ? .normal : .roamCapture
         NSApp.activate(ignoringOtherApps: true)
     }
 
     func notchClose() {
         openReason = .unknown
         status = .closed
-        contentType = .normal
+        contentType = .roamCapture
     }
 
     func showSettings() {
         contentType = .settings
+    }
+
+    func showRoamCapture() {
+        contentType = .roamCapture
     }
 
     func notchPop() {

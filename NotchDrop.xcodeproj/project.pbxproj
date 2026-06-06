@@ -45,13 +45,18 @@
 		50E26E272C3AF5E9007CF247 /* TrayDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E26E262C3AF5E9007CF247 /* TrayDrop.swift */; };
 		50E26E292C3AF67B007CF247 /* TrayDrop+DropItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E26E282C3AF67B007CF247 /* TrayDrop+DropItem.swift */; };
 		50EFDB522C3BF7B4002D3E0F /* Ext+NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EFDB512C3BF7B4002D3E0F /* Ext+NSImage.swift */; };
+		5F4FE2BBD458498A97A8051A /* RoamCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDD57D5C1F9445695C6B29B /* RoamCaptureView.swift */; };
 		60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD62862C579F4400299297 /* NotchSettingsView.swift */; };
+		9B6D4B455CFE454A977DBCFF /* RoamAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE2B8C67EFB4F82B04A555A /* RoamAPI.swift */; };
+		A7411FB33A364C2E9614BADD /* RoamConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CA8528223E4BFEAAE1E08F /* RoamConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04CA8528223E4BFEAAE1E08F /* RoamConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamConfig.swift; sourceTree = "<group>"; };
 		148901512DC9149900F2E06C /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		148901522DC9149900F2E06C /* Share+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Share+View.swift"; sourceTree = "<group>"; };
 		2700D8ED2C3CFD37005ACDDF /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		4DDD57D5C1F9445695C6B29B /* RoamCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamCaptureView.swift; sourceTree = "<group>"; };
 		501F0E8B2C59E6BD00F0113C /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		502E41D52C3CEC990060660E /* Ext+NSAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+NSAlert.swift"; sourceTree = "<group>"; };
 		503D8EB92C3F838200E173FF /* NotchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchMenuView.swift; sourceTree = "<group>"; };
@@ -82,6 +87,7 @@
 		50E26E282C3AF67B007CF247 /* TrayDrop+DropItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrayDrop+DropItem.swift"; sourceTree = "<group>"; };
 		50EFDB512C3BF7B4002D3E0F /* Ext+NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+NSImage.swift"; sourceTree = "<group>"; };
 		60AD62862C579F4400299297 /* NotchSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchSettingsView.swift; sourceTree = "<group>"; };
+		DCE2B8C67EFB4F82B04A555A /* RoamAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +162,9 @@
 				5044EE9D2C3B0F3D00071C5C /* Ext+FileProvider.swift */,
 				502E41D52C3CEC990060660E /* Ext+NSAlert.swift */,
 				5044EE9F2C3B116000071C5C /* PublishedPersist.swift */,
+				DCE2B8C67EFB4F82B04A555A /* RoamAPI.swift */,
+				04CA8528223E4BFEAAE1E08F /* RoamConfig.swift */,
+				4DDD57D5C1F9445695C6B29B /* RoamCaptureView.swift */,
 			);
 			path = NotchDrop;
 			sourceTree = "<group>";
@@ -283,6 +292,9 @@
 				5043819B2C3A8A06000ED325 /* AppDelegate.swift in Sources */,
 				148901532DC9149900F2E06C /* Share.swift in Sources */,
 				148901542DC9149900F2E06C /* Share+View.swift in Sources */,
+				9B6D4B455CFE454A977DBCFF /* RoamAPI.swift in Sources */,
+				A7411FB33A364C2E9614BADD /* RoamConfig.swift in Sources */,
+				5F4FE2BBD458498A97A8051A /* RoamCaptureView.swift in Sources */,
 				504381932C3A8755000ED325 /* main.swift in Sources */,
 				60AD62872C579F4400299297 /* NotchSettingsView.swift in Sources */,
 				504381A82C3A926E000ED325 /* NotchViewModel.swift in Sources */,
@@ -432,6 +444,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = U93HF9A978;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -467,6 +480,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = U93HF9A978;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
