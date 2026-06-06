@@ -17,20 +17,18 @@ struct NotchView: View {
     private let compactTimerWidth: CGFloat = 280
     private let compactSysmonWidth: CGFloat = 300
 
-    private var compactActive: Bool { focusTimer.isActive || true } // sysmon always shows
-    private var compactWidth: CGFloat { focusTimer.isActive ? compactTimerWidth : compactSysmonWidth }
-
     var notchSize: CGSize {
         switch vm.status {
         case .closed:
-            let width = compactActive ? compactWidth : max(0, vm.deviceNotchRect.width - 4)
-            let height = max(0, vm.deviceNotchRect.height - 4)
-            return CGSize(width: width, height: height)
+            // Timer always shows its compact HUD; sysmon only peeks on hover
+            let width = focusTimer.isActive ? compactTimerWidth : max(0, vm.deviceNotchRect.width - 4)
+            return CGSize(width: width, height: max(0, vm.deviceNotchRect.height - 4))
         case .opened:
             return vm.notchOpenedSize
         case .popping:
-            let width = compactActive ? compactWidth : vm.deviceNotchRect.width
-            return .init(width: width, height: vm.deviceNotchRect.height + 4)
+            // On hover: timer keeps its width, sysmon slides out to reveal stats
+            let width = focusTimer.isActive ? compactTimerWidth : compactSysmonWidth
+            return CGSize(width: width, height: vm.deviceNotchRect.height + 4)
         }
     }
 
@@ -54,7 +52,8 @@ struct NotchView: View {
                         .frame(width: compactTimerWidth, height: notchSize.height)
                         .zIndex(1)
                         .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
-                } else {
+                } else if vm.status == .popping {
+                    // Sysmon peeks on hover only — slides in with the notch expansion
                     SystemMonitorCompact()
                         .frame(width: compactSysmonWidth, height: notchSize.height)
                         .zIndex(1)
