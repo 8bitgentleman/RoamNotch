@@ -66,7 +66,7 @@ class NotchViewModel: NSObject, ObservableObject {
 
     @Published private(set) var status: Status = .closed
     @Published var openReason: OpenReason = .unknown
-    @Published var contentType: ContentType = .normal
+    @Published var contentType: ContentType = .roamCapture
 
     @Published var spacing: CGFloat = 16
     @Published var cornerRadius: CGFloat = 16
@@ -93,7 +93,8 @@ class NotchViewModel: NSObject, ObservableObject {
     func notchClose() {
         openReason = .unknown
         status = .closed
-        contentType = .roamCapture
+        // Don't reset contentType here — mutating it during the close animation
+        // causes a visible flash. notchOpen() sets it fresh on the next open.
     }
 
     func showSettings() {

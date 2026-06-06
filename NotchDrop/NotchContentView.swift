@@ -13,27 +13,38 @@ import UniformTypeIdentifiers
 struct NotchContentView: View {
     @StateObject var vm: NotchViewModel
 
+    // Explicit `if` branches are required — SwiftUI only fires insert/remove
+    // transitions when it can see discrete view identity changes, not switch cases.
     var body: some View {
         ZStack {
-            switch vm.contentType {
-            case .normal:
+            if vm.contentType == .normal {
                 HStack(spacing: vm.spacing) {
                     ShareView(vm: vm, type: .airdrop)
                     TrayView(vm: vm)
                 }
-                .transition(.scale(scale: 0.8).combined(with: .opacity))
-            case .menu:
+                .transition(contentTransition)
+            }
+            if vm.contentType == .menu {
                 NotchMenuView(vm: vm)
-                    .transition(.scale(scale: 0.8).combined(with: .opacity))
-            case .settings:
+                    .transition(contentTransition)
+            }
+            if vm.contentType == .settings {
                 NotchSettingsView(vm: vm)
-                    .transition(.scale(scale: 0.8).combined(with: .opacity))
-            case .roamCapture:
+                    .transition(contentTransition)
+            }
+            if vm.contentType == .roamCapture {
                 RoamCaptureView(vm: vm)
-                    .transition(.scale(scale: 0.8).combined(with: .opacity))
+                    .transition(contentTransition)
             }
         }
         .animation(vm.animation, value: vm.contentType)
+    }
+
+    private var contentTransition: AnyTransition {
+        .asymmetric(
+            insertion: .opacity.combined(with: .scale(scale: 0.92)),
+            removal:   .opacity.combined(with: .scale(scale: 0.96))
+        )
     }
 }
 
