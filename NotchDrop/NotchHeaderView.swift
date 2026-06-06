@@ -54,7 +54,7 @@ private struct TabPill: View {
                 Image(systemName: icon)
                     .font(.system(size: 12, weight: .semibold))
                 Text(label)
-                    .font(.system(size: 13, design: .rounded, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
             }
             .foregroundStyle(active ? .white : Color(white: 0.55))
             .padding(.horizontal, 12)
